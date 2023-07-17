@@ -1,0 +1,53 @@
+{
+  "name": "wallet-ui",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview",
+    "development": "vite build --base=/lms/ --mode development",
+    "production": "vite build --base=/lms/ --mode production",
+    "staging": "vite build --base=/lms/ --mode staging",
+    "clean": "rm -rf node_modules",
+    "reinstall": "npm run clean && npm install",
+    "lint": "eslint . --fix --ignore-path .gitignore",
+    "format": "prettier .  --write \"src\""
+  },
+  "dependencies": {
+    "@iconify/vue": "^4.1.1",
+    "@vueuse/core": "^10.1.0",
+    "axios": "^1.4.0",
+    "chart.js": "^4.3.0",
+    "moment": "^2.29.4",
+    "nprogress": "^0.2.0",
+    "pinia": "^2.0.23",
+    "pinia-plugin-persist": "^1.0.0",
+    "roboto-fontface": "*",
+    "vue": "^3.3.4",
+    "vue-chartjs": "^5.2.0",
+    "vue-i18n": "^9.2.2",
+    "vue-router": "^4.0.0",
+    "vuetify": "^3.2.1",
+    "webfontloader": "^1.0.0"
+  },
+  "devDependencies": {
+    "@mdi/font": "7.0.96",
+    "@types/node": "^18.11.9",
+    "@types/nprogress": "^0.2.0",
+    "@types/webfontloader": "^1.6.35",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "@vue/eslint-config-typescript": "^11.0.0",
+    "eslint": "^8.22.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-vue": "^9.3.0",
+    "font-awesome": "^4.7.0",
+    "prettier": "2.8.8",
+    "sass": "^1.62.1",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.0",
+    "vite-plugin-vuetify": "^1.0.2",
+    "vue-tsc": "^1.8.3"
+  }
+}
