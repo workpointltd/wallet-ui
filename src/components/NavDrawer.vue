@@ -13,34 +13,13 @@
         src="@/assets/presta-white-logo-full.png"
       />
     </v-col>
-    <v-col>
-      <v-row
-        no-gutters
-        align="center"
-        justify="space-between"
-        class="pr-8"
-      >
-        <v-avatar
-          size="55"
-          image="@/assets/user.png"
-          style="border: 5px solid white"
-        ></v-avatar>
-        <div>
-          <div class="text-caption text-grey-lighten-1">Welcome,</div>
-          <div class="text-subtitle-2 font-weight-light text-white">
-            {{
-              authStore.getLoggedInUser
-                ? `${authStore.getLoggedInUser.firstName} ${authStore.getLoggedInUser.lastName}`
-                : "loading.."
-            }}
-          </div>
-        </div>
-      </v-row>
-    </v-col>
+
+    <v-spacer></v-spacer>
 
     <v-list
       :lines="false"
-      nav
+      :nav="true"
+      class="px-4"
     >
       <template
         v-for="(item, i) in items"
@@ -88,114 +67,107 @@
           v-else
           :key="i"
           :value="item"
-          color="primary"
+          color="background"
           :href="item.href"
+          :prepend-icon="item.icon"
         >
-          <template v-slot:prepend>
-            <v-icon :icon="item.icon"></v-icon>
-          </template>
-          <v-list-item-title>{{ item.text }}</v-list-item-title>
+          <v-list-item-title class="px-2">{{ item.text }}</v-list-item-title>
         </v-list-item>
       </template>
     </v-list>
   </v-navigation-drawer>
-  <v-app-bar prominent>
-    <v-toolbar
-      flat
-      density="default"
-      content=""
-    >
-      <v-app-bar-nav-icon
+  <v-app-bar prominent :elevation="0" color="surface" class="appBar">
+    <v-app-bar-nav-icon
         variant="text"
         @click.stop="drawer = !drawer"
         style="color: #337ab7"
-      ></v-app-bar-nav-icon>
+    ></v-app-bar-nav-icon>
 
-      <v-spacer></v-spacer>
+    <v-spacer></v-spacer>
 
-      <v-menu transition="slide-y-transition">
-        <template v-slot:activator="{ props }">
-          <v-btn
+    <v-menu transition="slide-y-transition">
+      <template v-slot:activator="{ props }">
+        <v-btn
             class="text-medium-emphasis v-btn--size-default text-body-2 px-3 text-capitalize"
             density="default"
             prepend-icon="mdi:mdi-account-circle-outline"
             append-icon="mdi:mdi-chevron-down"
             v-bind="props"
-          >
-            {{
-              authStore.getLoggedInUser
+        >
+          {{
+            authStore.getLoggedInUser
                 ? authStore.getLoggedInUser.companyName
                 : "loading ..."
-            }}
-          </v-btn>
-        </template>
-        <v-sheet
+          }}
+        </v-btn>
+      </template>
+      <v-sheet
           border
           rounded
-        >
-          <v-list
+      >
+        <v-list
             nav
             density="compact"
             role="listbox"
-          >
-<!--            <v-list-item
-              link
-              href="https://accounts.presta.co.ke/"
-              density="compact"
-            >
-              <template v-slot:prepend>
-                <v-icon icon="mdi:mdi-plus"></v-icon>
-              </template>
-              <v-list-item-title>Create Organisation</v-list-item-title>
-            </v-list-item>-->
-          </v-list>
-        </v-sheet>
-      </v-menu>
+        >
+          <!--            <v-list-item
+                        link
+                        href="https://accounts.presta.co.ke/"
+                        density="compact"
+                      >
+                        <template v-slot:prepend>
+                          <v-icon icon="mdi:mdi-plus"></v-icon>
+                        </template>
+                        <v-list-item-title>Create Organisation</v-list-item-title>
+                      </v-list-item>-->
+        </v-list>
+      </v-sheet>
+    </v-menu>
 
-      <v-menu transition="slide-y-transition">
-        <template v-slot:activator="{ props }">
-          <v-btn
+    <v-menu transition="slide-y-transition">
+      <template v-slot:activator="{ props }">
+        <v-btn
             class="text-medium-emphasis v-btn--size-default text-body-2 px-3 text-capitalize"
             density="default"
             prepend-icon="mdi:mdi-account-circle-outline"
             append-icon="mdi:mdi-chevron-down"
             v-bind="props"
-          >
-            {{
-              authStore.getLoggedInUser
+        >
+          {{
+            authStore.getLoggedInUser
                 ? `${authStore.getLoggedInUser.firstName} ${authStore.getLoggedInUser.lastName}`
                 : "loading.."
-            }}
-          </v-btn>
-        </template>
-        <v-sheet
+          }}
+        </v-btn>
+      </template>
+      <v-sheet
           border
           rounded
-        >
-          <v-list
+      >
+        <v-list
             nav
             density="compact"
             role="listbox"
-          >
-            <v-list-subheader
+        >
+          <v-list-subheader
               title="ACCOUNT"
               class="text-high-emphasis text-uppercase font-weight-black"
-            />
-            <v-list-item
+          />
+          <v-list-item
               link
               href="https://accounts.presta.co.ke/"
               title="Approval Requests"
               density="compact"
-            >
-            </v-list-item>
-            <v-list-item
+          >
+          </v-list-item>
+          <v-list-item
               link
               href="https://accounts.presta.co.ke/"
               title="Profile"
               density="compact"
-            >
-            </v-list-item>
-            <v-list-item
+          >
+          </v-list-item>
+          <v-list-item
               link
               href="https://accounts.presta.co.ke/"
               :title="
@@ -204,129 +176,128 @@
                   : 'loading..'
               "
               density="compact"
-            >
-            </v-list-item>
-            <v-list-item
+          >
+          </v-list-item>
+          <v-list-item
               link
               href="https://accounts.presta.co.ke/"
               title="Version (Staging)"
               density="compact"
-            >
-            </v-list-item>
+          >
+          </v-list-item>
 
-            <v-divider class="my-3 mb-4" />
+          <v-divider class="my-3 mb-4" />
 
-            <v-list-item
+          <v-list-item
               link
               href="https://accounts.presta.co.ke/"
               density="compact"
-            >
-              <template v-slot:append>
-                <v-icon icon="mdi:mdi-logout-variant"></v-icon>
-              </template>
-              <v-list-item-title>Logout</v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-sheet>
-      </v-menu>
+          >
+            <template v-slot:append>
+              <v-icon icon="mdi:mdi-logout-variant"></v-icon>
+            </template>
+            <v-list-item-title>Logout</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-sheet>
+    </v-menu>
 
-      <v-menu>
-        <template v-slot:activator="{ props: menu }">
-          <v-tooltip location="bottom">
-            <template v-slot:activator="{ props: tooltip }">
-              <v-btn
+    <v-menu>
+      <template v-slot:activator="{ props: menu }">
+        <v-tooltip location="bottom">
+          <template v-slot:activator="{ props: tooltip }">
+            <v-btn
                 icon="mdi:mdi-dots-grid"
                 v-bind="mergeProps(menu, tooltip)"
-              >
-                <v-icon />
-              </v-btn>
-            </template>
-            <span>Presta Applications</span>
-          </v-tooltip>
-        </template>
-        <v-sheet
+            >
+              <v-icon />
+            </v-btn>
+          </template>
+          <span>Presta Applications</span>
+        </v-tooltip>
+      </template>
+      <v-sheet
           border
           rounded
-        >
-          <v-list
+      >
+        <v-list
             nav
             density="compact"
             role="listbox"
-          >
-            <v-list-subheader
+        >
+          <v-list-subheader
               title="Presta Applications"
               class="text-high-emphasis text-uppercase font-weight-black"
-            />
+          />
 
-            <v-list-item
+          <v-list-item
               link
               href="https://accounts.presta.co.ke/"
               title="Account Home"
               density="compact"
-            >
-              <template v-slot:append>
-                <v-icon icon="mdi:mdi-account-arrow-left"></v-icon>
-              </template>
-            </v-list-item>
+          >
+            <template v-slot:append>
+              <v-icon icon="mdi:mdi-account-arrow-left"></v-icon>
+            </template>
+          </v-list-item>
 
-            <v-list-item
+          <v-list-item
               link
               href="https://accounts.presta.co.ke/"
               title="Presta Pay"
               density="compact"
-            >
-              <template v-slot:append>
-                <v-icon icon="mdi:mdi-cash-sync"></v-icon>
-              </template>
-            </v-list-item>
+          >
+            <template v-slot:append>
+              <v-icon icon="mdi:mdi-cash-sync"></v-icon>
+            </template>
+          </v-list-item>
 
-            <v-list-item
+          <v-list-item
               link
               href="https://accounts.presta.co.ke/"
               title="Appraisal"
               density="compact"
-            >
-              <template v-slot:append>
-                <v-icon icon="mdi:mdi-text-box-check"></v-icon>
-              </template>
-            </v-list-item>
+          >
+            <template v-slot:append>
+              <v-icon icon="mdi:mdi-text-box-check"></v-icon>
+            </template>
+          </v-list-item>
 
-            <v-list-item
+          <v-list-item
               link
               href="https://accounts.presta.co.ke/"
               title="Calculator"
               density="compact"
-            >
-              <template v-slot:append>
-                <v-icon icon="mdi:mdi-calculator"></v-icon>
-              </template>
-            </v-list-item>
+          >
+            <template v-slot:append>
+              <v-icon icon="mdi:mdi-calculator"></v-icon>
+            </template>
+          </v-list-item>
 
-            <v-list-item
+          <v-list-item
               link
               href="https://accounts.presta.co.ke/"
               title="IAM"
               density="compact"
-            >
-              <template v-slot:append>
-                <v-icon icon="mdi:mdi-account-cog"></v-icon>
-              </template>
-            </v-list-item>
+          >
+            <template v-slot:append>
+              <v-icon icon="mdi:mdi-account-cog"></v-icon>
+            </template>
+          </v-list-item>
 
-            <v-list-item
+          <v-list-item
               link
               href="https://accounts.presta.co.ke/"
               title="Analytics"
               density="compact"
-            >
-              <template v-slot:append>
-                <v-icon icon="mdi:mdi-chart-bar-stacked"></v-icon>
-              </template>
-            </v-list-item>
-          </v-list>
-        </v-sheet>
-      </v-menu>
-    </v-toolbar>
+          >
+            <template v-slot:append>
+              <v-icon icon="mdi:mdi-chart-bar-stacked"></v-icon>
+            </template>
+          </v-list-item>
+        </v-list>
+      </v-sheet>
+    </v-menu>
   </v-app-bar>
 
   <v-overlay
@@ -413,19 +384,28 @@ const items = ref<
   }[]
 >([
   {
-    text: "Home",
-    icon: "fa fa-home",
+    text: "Billing",
+    icon: "",
     href: "#",
-    subItems: [
-      {
-        text: "Paybill Management",
-        href: "/",
-      },
-      {
-        text: "Wallets Service",
-        href: "/",
-      },
-    ],
+    subItems: [],
+  },
+  {
+    text: "Payment History",
+    icon: "",
+    href: "#",
+    subItems: [],
+  },
+  {
+    text: "About",
+    icon: "",
+    href: "#",
+    subItems: [],
+  },
+  {
+    text: "Settings",
+    icon: "",
+    href: "#",
+    subItems: [],
   }
 ]);
 

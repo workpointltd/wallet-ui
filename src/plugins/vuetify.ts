@@ -17,9 +17,6 @@ import { createVuetify } from "vuetify";
 import type { ThemeDefinition } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
-import { createVueI18nAdapter } from "vuetify/locale/adapters/vue-i18n";
-import { useI18n } from "vue-i18n";
-import i18n from "@/plugins/i18n";
 import * as labs from "vuetify/labs/components";
 
 // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
@@ -32,14 +29,14 @@ const Lighttheme: ThemeDefinition = {
     colors: {
         background: "#f2f5f8",
         surface: "#ffffff",
-        primary: "#344767",
+        primary: "#3C7AB7",
         secondary: "#334155",
         accent: "#705CF6",
         error: "#ef476f",
         info: "#2196F3",
         success: "#06d6a0",
         "on-success": "#ffffff",
-        warning: "#ffd166",
+        warning: "#ffd166"
     },
 };
 
@@ -93,9 +90,6 @@ export default createVuetify({
         },
         VSelect: {
             variant: "solo",
-        },
-    },
-    locale: {
-        adapter: createVueI18nAdapter({ i18n, useI18n }),
+        }
     },
 });

@@ -37,8 +37,8 @@ export const useAuthStore = defineStore("auth-store", {
     getLoggedInState(state) {
       return state.isLoggedIn;
     },
-    getAuthPrompt(state) {
-      return state.authPrompt;
+    getAuthPrompt(state): boolean {
+      return state.authPrompt as boolean;
     },
     showAlerts(state) {
       return state.alerts.length > 0;
