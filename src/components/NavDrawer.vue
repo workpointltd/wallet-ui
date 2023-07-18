@@ -8,10 +8,11 @@
     permanent
   >
     <v-col>
-      <v-img
+<!--      <v-img
         width="150"
         src="@/assets/presta-white-logo-full.png"
-      />
+      />-->
+      <h1 class="text-h6 pa-5 font-weight-regular">Presta</h1>
     </v-col>
 
     <v-spacer></v-spacer>
