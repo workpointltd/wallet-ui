@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import FixedHeader from "../components/common/FixedHeader.vue";
+import FixedHeader from "../components/walletservice/FixedHeader.vue";
 import {ref} from "vue";
 import router from "../router";
-import CompanyDetailsForm from "../components/common/CompanyDetailsForm.vue";
-import ContactDetailsForm from "../components/common/ContactDetailsForm.vue";
-import MappedUSSDs from "../components/common/MappedUSSDs.vue";
-import CustomCard from "../components/common/CustomCard.vue";
+import SharedAccounts from "../components/walletservice/wallets/SharedAccounts.vue"
+import WalletSharing from "../components/walletservice/wallets/WalletSharing.vue"
+import CustomCard from "../components/walletservice/CustomCard.vue"
+import Shared from "../components/walletservice/sharedaccounts/SharedAccounts.vue"
 
 const loading = ref(false);
 const tab = ref(null);
 const tabs = ref([
-  "Account Details", "USSD Accounts"
+  "Wallets", "Shared Accounts"
 ]);
 const submitContextData = () => {
   loading.value = true
@@ -18,7 +18,8 @@ const submitContextData = () => {
 </script>
 
 <template>
-  <FixedHeader :title="'About'" :subTitle="'Configure Your Account Details Here.'" >
+
+<FixedHeader :title="'Wallet Service'" :subTitle="'Configure Your Wallet Details Here.'" >
     <template #buttons>
       <v-btn
           @click="router.back()"
@@ -35,7 +36,7 @@ const submitContextData = () => {
           color="primary"
           class="text-none text-caption mx-2"
       >
-        Update
+        add account
       </v-btn>
     </template>
     <template #tabs>
@@ -50,7 +51,7 @@ const submitContextData = () => {
       </v-tabs>
     </template>
   </FixedHeader>
-  
+
   <v-window v-model="tab">
     <v-window-item
         v-for="n in tabs"
@@ -63,8 +64,8 @@ const submitContextData = () => {
             cols="12"
             sm="6"
           >
-            <CustomCard title="Company Details" sub-title="Edit Your Company Details Below.">
-              <CompanyDetailsForm :loading="loading" @clear="loading = false" />
+            <CustomCard title="Shared Accounts" sub-title="A List Of Your Shared Accounts">
+              <SharedAccounts  :loading="loading" @clear="loading = false" />
             </CustomCard>
           </v-col>
 
@@ -73,28 +74,20 @@ const submitContextData = () => {
             sm="6"
           >
             <CustomCard title="Contact Details" sub-title="Edit Your Contact Details Below.">
-              <ContactDetailsForm :loading="loading" @clear="loading = false" />
+              <WalletSharing :loading="loading" @clear="loading = false" />
             </CustomCard>
           </v-col>
         </v-row>
       </v-container>
 
       <v-container fluid v-if="n == tabs[1]">
-        <v-row no-gutters>
-          <v-col
-              cols="12"
-              sm="6"
-          >
-            <CustomCard title="Mapped USSD" sub-title="A List Of Your Mapped USSD Codes">
-              <MappedUSSDs />
+        
+            <CustomCard title="Shared Accounts" sub-title="A List Of Shared Accounts">
+            <WalletSharing :loading="loading" @clear="loading = false" />
             </CustomCard>
-          </v-col>
-        </v-row>
+          
       </v-container>
     </v-window-item>
   </v-window>
+
 </template>
-
-<style scoped>
-
-</style>
