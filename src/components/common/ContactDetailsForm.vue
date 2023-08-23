@@ -1,7 +1,15 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
-import { useVuelidate } from '@vuelidate/core'
-import { email, required } from '@vuelidate/validators'
+import {reactive, toRef, watch} from 'vue';
+import { useVuelidate } from '@vuelidate/core';
+import { email, required } from '@vuelidate/validators';
+
+const emit = defineEmits(["clear"]);
+
+const props = defineProps<{
+  loading: boolean;
+}>();
+
+const loading = toRef(props, "loading");
 
 const initialState = {
   contactName: '',
@@ -9,11 +17,11 @@ const initialState = {
   ccEmail: '',
   address: '',
   location: '',
-}
+};
 
 const state = reactive({
   ...initialState,
-})
+});
 
 const rules = {
   contactName: { required },
@@ -21,17 +29,33 @@ const rules = {
   ccEmail: { required, email },
   address: { required },
   location: { required },
-}
+};
 
-const v$ = useVuelidate(rules, state, { $lazy: true, $autoDirty: true})
+const v$ = useVuelidate(rules, state, { $lazy: true, $autoDirty: true});
 
-function clear () {
+const clear = () => {
   v$.value.$reset()
 
   for (const [key, value] of Object.entries(initialState)) {
     state[key as keyof typeof initialState] = value
   }
-}
+};
+
+watch(loading, async () => {
+  if (loading.value) {
+    v$.value.$touch();
+    const result = await v$.value.$validate();
+    if (result) {
+      console.log("submit state", state);
+      clear();
+    } else {
+      setTimeout(() => {
+        emit("clear");
+      }, 1000)
+    }
+  }
+});
+
 </script>
 
 <template>

@@ -1,20 +1,27 @@
 <script setup lang="ts">
 import FixedHeader from "../components/common/FixedHeader.vue";
 import {ref} from "vue";
+import router from "../router";
 import CompanyDetailsForm from "../components/common/CompanyDetailsForm.vue";
 import ContactDetailsForm from "../components/common/ContactDetailsForm.vue";
 import MappedUSSDs from "../components/common/MappedUSSDs.vue";
+import CustomCard from "../components/common/CustomCard.vue";
 
-const tab = ref(null)
+const loading = ref(false);
+const tab = ref(null);
 const tabs = ref([
   "Account Details", "USSD Accounts"
-])
+]);
+const submitContextData = () => {
+  loading.value = true
+}
 </script>
 
 <template>
   <FixedHeader :title="'About'" :subTitle="'Configure Your Account Details Here.'" >
     <template #buttons>
       <v-btn
+          @click="router.back()"
           variant="outlined"
           color="none"
           class="text-none text-caption mx-2"
@@ -22,6 +29,8 @@ const tabs = ref([
         Go Back
       </v-btn>
       <v-btn
+          @click="submitContextData"
+          :loading="loading"
           variant="flat"
           color="primary"
           class="text-none text-caption mx-2"
@@ -53,39 +62,19 @@ const tabs = ref([
             cols="12"
             sm="6"
           >
-            <v-col class="h-100">
-              <v-col class="bg-white border-none rounded-sm h-100">
-                <v-col>
-                  <h1 class="text-h6 font-weight-regular">Company Details</h1>
-                  <h2 class="text-caption text-grey-darken-1 font-weight-regular">
-                    Edit Your Company Details Below.
-                  </h2>
-
-                  <CompanyDetailsForm/>
-                </v-col>
-              </v-col>
-            </v-col>
+            <CustomCard title="Company Details" sub-title="Edit Your Company Details Below.">
+              <CompanyDetailsForm :loading="loading" @clear="loading = false" />
+            </CustomCard>
           </v-col>
 
           <v-col
             cols="12"
             sm="6"
           >
-            <v-col class="h-100">
-              <v-col class="bg-white border-none rounded-sm h-100">
-                <v-col>
-                  <h1 class="text-h6 font-weight-regular">Contact Details</h1>
-                  <h2 class="text-caption text-grey-darken-1 font-weight-regular">
-                    Edit Your Contact Details Below.
-                  </h2>
-
-
-                  <ContactDetailsForm/>
-                </v-col>
-              </v-col>
-            </v-col>
+            <CustomCard title="Contact Details" sub-title="Edit Your Contact Details Below.">
+              <ContactDetailsForm :loading="loading" @clear="loading = false" />
+            </CustomCard>
           </v-col>
-
         </v-row>
       </v-container>
 
@@ -95,18 +84,9 @@ const tabs = ref([
               cols="12"
               sm="6"
           >
-            <v-col class="h-100">
-              <v-col class="bg-white border-none rounded-sm h-100">
-                <v-col>
-                  <h1 class="text-h6 font-weight-regular">Mapped USSD</h1>
-                  <h2 class="text-caption text-grey-darken-1 font-weight-regular">
-                    A List Of Your Mapped USSD Codes
-                  </h2>
-                </v-col>
-
-                <MappedUSSDs/>
-              </v-col>
-            </v-col>
+            <CustomCard title="Mapped USSD" sub-title="A List Of Your Mapped USSD Codes">
+              <MappedUSSDs />
+            </CustomCard>
           </v-col>
         </v-row>
       </v-container>
