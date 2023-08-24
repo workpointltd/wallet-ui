@@ -14,7 +14,7 @@ const wallets = [
       },
       {
         name: "delete",
-        icon: "mdi-close"
+        icon: "mdi-delete"
       }
     ]
   },
@@ -30,7 +30,7 @@ const wallets = [
       },
       {
         name: "delete",
-        icon: "mdi-close"
+        icon: "mdi-delete"
       }
     ]
   },
@@ -46,7 +46,7 @@ const wallets = [
       },
       {
         name: "delete",
-        icon: "mdi-close"
+        icon: "mdi-delete"
       }
     ]
   },
@@ -62,7 +62,7 @@ const wallets = [
       },
       {
         name: "delete",
-        icon: "mdi-close"
+        icon: "mdi-delete"
       }
     ]
   },
@@ -78,7 +78,7 @@ const wallets = [
       },
       {
         name: "delete",
-        icon: "mdi-close"
+        icon: "mdi-delete"
       }
     ]
   },
@@ -94,7 +94,7 @@ const wallets = [
       },
       {
         name: "delete",
-        icon: "mdi-close"
+        icon: "mdi-delete"
       }
     ]
   },
@@ -110,7 +110,7 @@ const wallets = [
       },
       {
         name: "delete",
-        icon: "mdi-close"
+        icon: "mdi-delete"
       }
     ]
   },
@@ -126,7 +126,7 @@ const wallets = [
       },
       {
         name: "delete",
-        icon: "mdi-close"
+        icon: "mdi-delete"
       }
     ]
   }
@@ -210,13 +210,7 @@ const loadItems = (options: optionsType) => {
     <template v-slot:[`item.actions`]="{ item }">
       
      <v-btn-group dense>
-    <v-btn
-      v-for="btn in item.raw.actions"
-      :key="btn.name"
-      :icon="true"
-      :to="`#${btn.name}`"
-      class="action-btn"
-    >
+           <v-btn v-for="btn in item.raw.actions" :icon="btn.icon"  variant="outlined" density="compact" size="small" class="action-btn" color="error" >
       <v-icon
         :size="btn.name === 'delete' ? 'medium' : 'default'"
         :color="btn.name === 'delete' ? 'red' : 'green'"
@@ -232,5 +226,7 @@ const loadItems = (options: optionsType) => {
 
 
 <style scoped>
-
+.action-btn {
+  margin-right: 10px; /* Add margin between the buttons */
+}
 </style>

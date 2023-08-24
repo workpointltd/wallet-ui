@@ -32,7 +32,7 @@ const subTitle = toRef(props, "subTitle")
             single-line
             hide-details
             @click:append-inner="onClick"
-            class="mt-2 no-shadow" 
+             class="mt-4 custom-height"
             ></v-text-field> 
             </v-row>
           <slot></slot>
@@ -43,9 +43,8 @@ const subTitle = toRef(props, "subTitle")
     </v-col>
   </v-col>
 </template>
-
 <style scoped>
-.no-shadow .v-input__control {
-  box-shadow: none; /* Remove the default box shadow */
+.custom-height {
+  height: 40px; 
 }
 </style>

@@ -9,7 +9,7 @@ const wallets = [
     actions: [
       {
         name: "check",
-        icon: "mdi-tick"
+        icon: "mdi-check"
       },
       {
         name: "delete",
@@ -25,7 +25,7 @@ const wallets = [
     actions: [
       {
         name: "check",
-        icon: "mdi-tick"
+        icon: "mdi-check"
       },
       {
         name: "delete",
@@ -41,7 +41,7 @@ const wallets = [
     actions: [
       {
         name: "check",
-        icon: "mdi-tick"
+        icon: "mdi-check"
       },
       {
         name: "delete",
@@ -56,7 +56,7 @@ const wallets = [
     actions: [
       {
         name: "check",
-        icon: "mdi-tick"
+        icon: "mdi-check"
       },
       {
         name: "delete",
@@ -141,15 +141,10 @@ const loadItems = (options: optionsType) => {
     <!-- Customize the rendering of the actions column -->
     <template v-slot:[`item.actions`]="{ item }">
       
-     <v-btn-group dense>
-    <v-btn
-      v-for="btn in item.raw.actions"
-      :key="btn.name"
-      :icon="true"
-      :to="`#${btn.name}`"
-      class="action-btn"
-    >
+  <v-btn-group dense>
+           <v-btn v-for="btn in item.raw.actions" :icon="btn.icon"  variant="outlined" density="compact" size="small" class="action-btn" color="error" >
       <v-icon
+      variant="outlined"
         :size="btn.name === 'delete' ? 'medium' : 'default'"
         :color="btn.name === 'delete' ? 'red' : 'green'"
       >

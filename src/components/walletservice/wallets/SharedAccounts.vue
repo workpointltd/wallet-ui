@@ -14,7 +14,7 @@ const wallets = [
       },
       {
         name: "delete",
-        icon: "mdi-close"
+        icon: "mdi-delete"
       }
     ]
   },
@@ -30,7 +30,7 @@ const wallets = [
       },
       {
         name: "delete",
-        icon: "mdi-close"
+        icon: "mdi-delete"
       }
     ]
   },
@@ -46,7 +46,7 @@ const wallets = [
       },
       {
         name: "delete",
-        icon: "mdi-close"
+        icon: "mdi-delete"
       }
     ]
   },
@@ -62,7 +62,7 @@ const wallets = [
       },
       {
         name: "delete",
-        icon: "mdi-close"
+        icon: "mdi-delete"
       }
     ]
   },
@@ -78,7 +78,7 @@ const wallets = [
       },
       {
         name: "delete",
-        icon: "mdi-close"
+        icon: "mdi-delete"
       }
     ]
   },
@@ -94,7 +94,7 @@ const wallets = [
       },
       {
         name: "delete",
-        icon: "mdi-close"
+        icon: "mdi-delete"
       }
     ]
   },
@@ -110,7 +110,7 @@ const wallets = [
       },
       {
         name: "delete",
-        icon: "mdi-close"
+        icon: "mdi-delete"
       }
     ]
   },
@@ -126,7 +126,7 @@ const wallets = [
       },
       {
         name: "delete",
-        icon: "mdi-close"
+        icon: "mdi-delete"
       }
     ]
   }
@@ -148,25 +148,40 @@ const search = ref("")
 const loading = ref(false)
 
 const serverItems = computed(() => {
-  return wallets
-})
-type optionsType = {
-  page: number,
+  // Apply search filter
+  const filteredWallets = wallets.filter(wallet =>
+    wallet.org.toLowerCase().includes(search.value.toLowerCase())
+  );
+  return filteredWallets;
+});
+
+type OptionsType = {
+  page: number;
   itemsPerPage: number;
   sortBy: [];
   groupBy: [];
   search: string;
-}
-const loadItems = (options: optionsType) => {
-  itemsPerPage.value = options.itemsPerPage
-  loading.value = true
+};
+
+
+const currentPage = ref(1);
+
+const loadItems = (options: OptionsType) => {
+  itemsPerPage.value = options.itemsPerPage;
+  currentPage.value = options.page; // Update the current page
+  loading.value = true;
 
   setTimeout(() => {
-    loading.value = false
-  }, 1000)
-}
-</script>
+    loading.value = false;
+  }, 1000);
+};
 
+const serverItemsPaginated = computed(() => {
+  const startIndex = (currentPage.value - 1) * itemsPerPage.value;
+  const endIndex = startIndex + itemsPerPage.value;
+  return serverItems.value.slice(startIndex, endIndex);
+});
+</script>
 <template>
   <v-data-table-server
     class="text-md-body-2"
@@ -178,7 +193,7 @@ const loadItems = (options: optionsType) => {
     :search="search"
     item-value="name"
     noDataText="No data available"
-    loadingText="Loading..."
+    loadingText="loading"
     :itemsPerPageText="'Show'"
     :pageText="'entries'"
     :firstIcon="false"
@@ -186,13 +201,16 @@ const loadItems = (options: optionsType) => {
     :showCurrentPage="true"
     :itemsPerPageOptions="[
       {
+        title: '5',
+        value: 5
+      },
+      {
         title: '10',
         value: 10
       }
     ]"
     @update:options="loadItems"
   >
-    <!-- Display the org, acname, c2b, and b2b fields -->
     <template v-slot:[`item.org`]="{ item }">
       {{ item.raw.org }}
     </template>
@@ -206,18 +224,12 @@ const loadItems = (options: optionsType) => {
       {{ item.raw.b2b }}
     </template>
 
-    <!-- Customize the rendering of the actions column -->
     <template v-slot:[`item.actions`]="{ item }">
       
-     <v-btn-group dense>
-    <v-btn
-      v-for="btn in item.raw.actions"
-      :key="btn.name"
-      :icon="true"
-      :to="`#${btn.name}`"
-      class="action-btn"
-    >
+   <v-btn-group dense>
+           <v-btn v-for="btn in item.raw.actions" :icon="btn.icon"  variant="outlined" density="compact" size="small" class="action-btn" color="error" >
       <v-icon
+      vari
         :size="btn.name === 'delete' ? 'medium' : 'default'"
         :color="btn.name === 'delete' ? 'red' : 'green'"
       >
@@ -229,8 +241,5 @@ const loadItems = (options: optionsType) => {
     </template>
   </v-data-table-server>
 </template>
-
-
 <style scoped>
-
 </style>
