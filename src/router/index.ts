@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-
 const routes = [
     {
         path: "",
@@ -10,7 +9,13 @@ const routes = [
         component: () =>
             import(/* webpackChunkName: "home" */ "@/views/index.vue"),
         meta: { requiresAuth: true },
-    }
+    },
+    {
+        path: "/service",
+        name: "walletservice",
+        component: () => import(/* webpackChunkName: "WalletService" */ "@/views/service.vue"),
+      }
+      
 ];
 
 const router = createRouter({
